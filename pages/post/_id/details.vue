@@ -40,8 +40,23 @@ import { mapState } from 'vuex'
                 })
             },
             deletePost(post){
+                this.$confirm('Vous voulez vraiment le suppripmé', 'Warning', {
+                confirmButtonText: 'OK',
+                cancelButtonText: 'Annuler',
+                type: 'warning' 
+                }).then(()=>{
                 this.$store.dispatch('deletePost', post);
+                this.$message({
+                    type: 'success',
+                    message: 'post supprimé'
+                });
                 this.$router.push({path: `/post/list`})
+                }).catch(() => {
+                    this.$message({
+                    type: 'info',
+                    message: 'Suppression annulée'
+                });          
+                });
             }
         },
     }
